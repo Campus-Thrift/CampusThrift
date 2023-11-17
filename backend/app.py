@@ -28,6 +28,8 @@ def failure_response(message, code=404):
     return json.dumps({"error": message}), code
 
 # routes
+@app.route("/")
+@app.route("/api/")
 
 
 if __name__ == "__main__":
