@@ -185,7 +185,7 @@ def delete_post_by_id(post_id,user_id):
         return success_response(post.serialize())
     return failure_response("can not delete other's post")
     
-@app.route("/api/posts/<int:post_id>/<int:buyer_id>/buy/")
+@app.route("/api/posts/<int:post_id>/<int:buyer_id>/buy/", methods = ["POST"])
 def buy_post(post_id,buyer_id):
     buyer = User.query.filter_by(id = buyer_id).first()
     if buyer is None:
@@ -207,7 +207,7 @@ def buy_post(post_id,buyer_id):
     db.session.commit()
     return success_response(post.serialize())
 
-@app.route("/api/posts/<int:post_id>/<int:user_id>/like/")
+@app.route("/api/posts/<int:post_id>/<int:user_id>/like/", methods = ["POST"])
 def like_post(post_id,user_id):
     user = User.query.filter_by(id = user_id).first()
     if user is None:
