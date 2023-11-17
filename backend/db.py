@@ -37,8 +37,13 @@ class User(db.Model):
                                 secondary = follow,
                                 primaryjoin = (follow.c.follower_id == id),
                                 backref = "follow")
-    posts = db.relationship("Post", cascade = "delete")
-    bought = db.relationsihp("Post", cascade = "delete")
+    liked = db.relationship("Post",
+                            secondary = likes_association_table,
+                            back_populates = "likes")
+    posts = db.relationship("Post",
+                            cascade = "delete")
+    bought = db.relationship("Post",
+                             cascade = "delete")
 
     
     def __init__(self, **kwargs):
@@ -47,20 +52,25 @@ class User(db.Model):
         """
         self.name = kwargs.get("name", "No name")
         self.netid = kwargs.get("netid", "None")
+        self.balance = kwargs.get("balance", 0.0)
 
     def serialize(self):
+        """
+        Serializes a User object
+        """
         return {
             "id": self.id,
             "name": self.name,
             "netid": self.netid,
             "followers": [f.simple_serialize() for f in self.followers],
             "followed": [f.simple_serialize() for f in self.followed],
-            
+            "posts": [p.simple_serialize() for p in self.posts],
+            "bought": [p.simple_serialize() for p in self.bought]
         }
     
     def simple_serialize(self):
         """
-        Serializes a User object without the following and followers field
+        Serializes a User object without the following and followers field.
         """
         return {
             "id": self.id,
@@ -81,10 +91,16 @@ class Post(db.Model):
     title = db.Column(db.String,nullable = False)
     description = db.Column(db.String,nullable = False)
     price = db.Column(db.Integer,nullable = False)
+    likes = db.relationship("User",
+                            secondary = likes_association_table,
+                            back_populates = "liked")
     user_id_post = db.Column(db.Integer,db.ForeignKey("users.id"),nullable =False)
     user_id_buy = db.Column(db.Intger,db.ForeignKey("users.id"),nullable = False)
     
     def __init__(self,**kwargs):
+        """
+        Initializes a Post object.
+        """
         self.username = kwargs.get("username")
         self.timestamp = int(kwargs.get("timestamp"))
         self.photo = kwargs.get("photo")
@@ -95,6 +111,9 @@ class Post(db.Model):
         self.user_id_buy = kwargs.get("user_id_buy",-1)
         
     def serialize(self):
+        """
+        Serializes a Post object.
+        """
         return {
             "id" : self.id,
             "username" : self.username,
@@ -105,4 +124,18 @@ class Post(db.Model):
             "price" : self.price,
             "user_id_post" : self.user_id_post,
             "user_id_buy" : self.user_id_buy
+        }
+    
+    def simple_serialize(self):
+        """
+        Serializes a Post object without the user post and buy ids.
+        """
+        return {
+            "id" : self.id,
+            "username" : self.username,
+            "timestamp" : self.timestamp,
+            "photo" : self.photo,
+            "title" : self.title,
+            "description" : self.description,
+            "price" : self.price
         }
