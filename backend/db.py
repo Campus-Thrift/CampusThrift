@@ -12,9 +12,9 @@ follow = db.Table (
 
 likes_association_table = db.Table(
     "likes_association_table",
-    db.Model.matadata,
-    db.Column("post_id",db.Integer,db.ForeignKey("posts.id")).
-    db.Column("user_id",db.Integer,db.ForeignKey("users.id"))
+    db.Model.metadata,
+    db.Column("post_id",db.Integer,db.ForeignKey("post.id")),
+    db.Column("user_id",db.Integer,db.ForeignKey("user.id"))
 )
 
 # classes
@@ -22,8 +22,8 @@ class User(db.Model):
     """
     User model
     """
-    __tablename__ = "users"
-    id = db.Column(db.Integer, primary_key = True, autoIncrement = True)
+    __tablename__ = "user"
+    id = db.Column(db.Integer, primary_key = True, autoincrement = True)
     name = db.Column(db.String, nullable = False)
     netid = db.Column(db.String, nullable = False)
     balance = db.Column(db.Float, nullable = False)
@@ -83,7 +83,7 @@ class Post(db.Model):
     """
     Post model
     """
-    __tablename__ = "posts"
+    __tablename__ = "post"
     id = db.Column(db.Integer,primary_key = True,autoincrement = True)
     username = db.Column(db.String,nullable = False)
     timestamp = db.Column(db.Integer,nullable = False)
@@ -94,8 +94,8 @@ class Post(db.Model):
     likes = db.relationship("User",
                             secondary = likes_association_table,
                             back_populates = "liked")
-    user_id_post = db.Column(db.Integer,db.ForeignKey("users.id"),nullable =False)
-    user_id_buy = db.Column(db.Intger,db.ForeignKey("users.id"),nullable = False)
+    user_id_post = db.Column(db.Integer,db.ForeignKey("user.id"),nullable =False)
+    user_id_buy = db.Column(db.Integer,db.ForeignKey("user.id"),nullable = False)
     
     def __init__(self,**kwargs):
         """
