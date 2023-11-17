@@ -3,18 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 # association tables
-following_association_table = db.Table (
-    "following",
+follow = db.Table (
+    "follow",
     db.Model.metadata,
-    db.Column("user_id", db.Integer, db.ForeignKey("user.id")),
-    db.Column("user_id", db.Integer, db.ForeignKey("user.id"))
-)
-
-followers_association_table = db.Table (
-    "following",
-    db.Model.metadata,
-    db.Column("user_id", db.Integer, db.ForeignKey("course.id")),
-    db.Column("user_id", db.Integer, db.ForeignKey("course.id"))
+    db.Column("follower_id", db.Integer, db.ForeignKey("user.id")),
+    db.Column("followed_id", db.Integer, db.ForeignKey("user.id"))
 )
 
 # classes
@@ -26,8 +19,20 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key = True, autoIncrement = True)
     name = db.Column(db.String, nullable = False)
     netid = db.Column(db.String, nullable = False)
-    following = db.relationship("User", secondary = following_association_table, back_populates = "followers")
-    followers = db.relationship("User", secondary = followers_association_table, back_populates = "followers")
+    balance = db.Column(db.Float, nullable = False)
+    # this field represents all the users following a user
+    followers = db.relationship("User", 
+                                secondary = follow, 
+                                primaryjoin = (follow.c.followed_id == id),
+                                backref = "follow")
+    # this field represents all the users a user is following
+    followed = db.relationship("User",
+                                secondary = follow,
+                                primaryjoin = (follow.c.follower_id == id),
+                                backref = "follow")
+    posts = db.relationship("Post", cascade = "delete")
+    bought = db.relationsihp("Post", cascade = "delete")
+
     
     def __init__(self, **kwargs):
         """
@@ -41,8 +46,9 @@ class User(db.Model):
             "id": self.id,
             "name": self.name,
             "netid": self.netid,
-            "following": [f.simple_serialize() for f in self.following],
-            "followers": [f.simple_serialize() for f in self.followers]
+            "followers": [f.simple_serialize() for f in self.followers],
+            "followed": [f.simple_serialize() for f in self.followed],
+            
         }
     
     def simple_serialize(self):
