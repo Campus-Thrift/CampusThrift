@@ -87,7 +87,7 @@ class Post(db.Model):
     id = db.Column(db.Integer,primary_key = True,autoincrement = True)
     username = db.Column(db.String,nullable = False)
     timestamp = db.Column(db.Integer,nullable = False)
-    photo = db.Column(db.LargeBinary,nullable = False)
+    photo = db.Column(db.String,nullable = False)
     title = db.Column(db.String,nullable = False)
     description = db.Column(db.String,nullable = False)
     price = db.Column(db.Integer,nullable = False)
