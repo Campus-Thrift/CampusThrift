@@ -71,7 +71,8 @@ class User(db.Model):
             "followers": [f.simple_serialize() for f in self.followers],
             "followed": [f.simple_serialize() for f in self.followed],
             "posts": [p.simple_serialize() for p in self.posts],
-            "bought": [p.simple_serialize() for p in self.bought]
+            "bought": [p.simple_serialize() for p in self.bought],
+            "liked": [l.simple_serialize() for l in self.liked]
         }
     
     def simple_serialize(self):

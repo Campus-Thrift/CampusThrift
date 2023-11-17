@@ -138,7 +138,7 @@ def get_all_post():
 
 @app.route("/api/posts/<int:user_id>/create/", methods = ["POST"])
 def create_post(user_id):
-    user = User.query.filter_by(id=user_id)
+    user = User.query.filter_by(id=user_id).first()
     if user is None:
         return failure_response("user not found")
     body = json.loads(request.data)
@@ -146,7 +146,7 @@ def create_post(user_id):
     timestamp = body.get("timestamp")
     photo = body.get("photo")
     title = body.get("title")
-    description = body.get("decription")
+    description = body.get("description")
     price = body.get("price")
     if (username is None) or (timestamp is None) or (photo is None) or (title is None) or (description is None) or (price is None):
         return failure_response("missing information")
