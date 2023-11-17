@@ -3,8 +3,6 @@ import json
 from db import *
 from flask import Flask,request
 import os
-from db import Post
-from db import User
 
 # define db filename
 db_filename = "todo.db"
