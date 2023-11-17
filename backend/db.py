@@ -27,22 +27,27 @@ class User(db.Model):
     name = db.Column(db.String, nullable = False)
     netid = db.Column(db.String, nullable = False)
     balance = db.Column(db.Float, nullable = False)
-    # this field represents all the users following a user
-    followers = db.relationship("User", 
-                                secondary = follow, 
-                                primaryjoin = (follow.c.followed_id == id),
-                                backref = "follow")
-    # this field represents all the users a user is following
+    followers = db.relationship("User",
+                                secondary=follow,
+                                primaryjoin=(follow.c.followed_id == id),
+                                secondaryjoin=(follow.c.follower_id == id),
+                                backref="followed_ref",
+                                foreign_keys=[follow.c.followed_id, follow.c.follower_id])
+
     followed = db.relationship("User",
-                                secondary = follow,
-                                primaryjoin = (follow.c.follower_id == id),
-                                backref = "follow")
+                                secondary=follow,
+                                primaryjoin=(follow.c.follower_id == id),
+                                secondaryjoin=(follow.c.followed_id == id),
+                                backref="followers_ref",
+                                foreign_keys=[follow.c.follower_id, follow.c.followed_id])
     liked = db.relationship("Post",
                             secondary = likes_association_table,
                             back_populates = "likes")
     posts = db.relationship("Post",
+                            foreign_keys="Post.user_id_post",
                             cascade = "delete")
     bought = db.relationship("Post",
+                             foreign_keys="Post.user_id_buy",
                              cascade = "delete")
 
     
