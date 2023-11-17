@@ -67,6 +67,7 @@ class User(db.Model):
             "id": self.id,
             "name": self.name,
             "netid": self.netid,
+            "balance": self.balance,
             "followers": [f.simple_serialize() for f in self.followers],
             "followed": [f.simple_serialize() for f in self.followed],
             "posts": [p.simple_serialize() for p in self.posts],
@@ -80,7 +81,8 @@ class User(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "netid": self.netid
+            "netid": self.netid,
+            "balance": self.balance
         }
 
 
@@ -95,7 +97,7 @@ class Post(db.Model):
     photo = db.Column(db.String,nullable = False)
     title = db.Column(db.String,nullable = False)
     description = db.Column(db.String,nullable = False)
-    price = db.Column(db.Integer,nullable = False)
+    price = db.Column(db.Float,nullable = False)
     likes = db.relationship("User",
                             secondary = likes_association_table,
                             back_populates = "liked")

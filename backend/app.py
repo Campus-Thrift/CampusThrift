@@ -66,7 +66,7 @@ def get_user(user_id):
         return failure_response("User not found.")
     return success_response(user.serialize())
 
-@app.route("/api/users/<int:user_id>/")
+@app.route("/api/users/<int:user_id>/", methods = ["POST"])
 def update_user(user_id):
     user = User.query.filter_by(id = user_id).first()
     if user is None:
@@ -131,12 +131,12 @@ def unfollow_user(user_id):
     db.session.commit()
     return success_response(user.serialize())
 
-@app.route("/api/post/")
+@app.route("/api/posts/")
 def get_all_post():
     posts = [post.serialize() for post in Post.query.all()]
     return success_response({"Posts":posts})
 
-@app.route("/api/post/<int:user_id>/create", methods = ["POST"])
+@app.route("/api/posts/<int:user_id>/create/", methods = ["POST"])
 def create_post(user_id):
     user = User.query.filter_by(id=user_id)
     if user is None:
@@ -166,14 +166,14 @@ def create_post(user_id):
     db.session.commit()
     return success_response(new_post.serialize(),201)
 
-@app.route("/api/post/<int:post_id>/")
+@app.route("/api/posts/<int:post_id>/")
 def get_post_by_id(post_id):
     post = Post.query.filter_by(id = post_id).first()
     if post is None:
         return failure_response("post not found")
     return success_response(post.serialize())
 
-@app.route("/api/post/<int:post_id>/<int:user_id>/",methods= ["DELETE"])
+@app.route("/api/posts/<int:post_id>/<int:user_id>/",methods= ["DELETE"])
 def delete_post_by_id(post_id,user_id):
     post = Post.query.filter_by(id = post_id).first()
     if post is None:
@@ -185,7 +185,7 @@ def delete_post_by_id(post_id,user_id):
         return success_response(post.serialize())
     return failure_response("can not delete other's post")
     
-@app.route("/api/post/<int:post_id>/<int:buyer_id>/buy")
+@app.route("/api/posts/<int:post_id>/<int:buyer_id>/buy/")
 def buy_post(post_id,buyer_id):
     buyer = User.query.filter_by(id = buyer_id).first()
     if buyer is None:
@@ -207,7 +207,7 @@ def buy_post(post_id,buyer_id):
     db.session.commit()
     return success_response(post.serialize())
 
-@app.route("/api/post/<int:post_id>/<int:user_id>/like")
+@app.route("/api/posts/<int:post_id>/<int:user_id>/like/")
 def like_post(post_id,user_id):
     user = User.query.filter_by(id = user_id).first()
     if user is None:
