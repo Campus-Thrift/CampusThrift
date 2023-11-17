@@ -91,5 +91,45 @@ def delete_user(user_id):
     db.session.commit()
     return success_response(user.serialize())
 
+@app.route("/api/users/<int:user_id>/follow/", methods = ["POST"])
+def follow_user(user_id):
+    """
+    Endpoint for following a user
+    """
+    user = User.query.filter_by(id = user_id).first()
+    if user is None:
+        return failure_response("User not found.")
+    body = json.loads(request.data)
+    follow_user_id = body.get("user_id")
+    if follow_user_id is None:
+        return failure_response("Invalid following user_id.", 400)
+    follow_user = User.query.filter_by(id = follow_user_id).first()
+    if follow_user is None:
+        return failure_response("Following user not found.")
+    user.followed.append(follow_user)
+    db.session.commit()
+    return success_response(user.serialize())
+
+@app.route("/api/users/<int:user_id>/unfollow/", methods = ["POST"])
+def unfollow_user(user_id):
+    """
+    Endpoint for unfollowing a user
+    """
+    user = User.query.filter_by(id = user_id).first()
+    if user is None:
+        return failure_response("User not found.")
+    body = json.loads(request.data)
+    follow_user_id = body.get("user_id")
+    if follow_user_id is None:
+        return failure_response("Invalid following user_id.", 400)
+    follow_user = User.query.filter_by(id = follow_user_id).first()
+    if follow_user is None:
+        return failure_response("Following user not found.")
+    if follow_user not in  user.followed:
+        return failure_response("Following user not followed.", 400)
+    user.followed.remove(follow_user)
+    db.session.commit()
+    return success_response(user.serialize())
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
