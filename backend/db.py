@@ -17,6 +17,13 @@ followers_association_table = db.Table (
     db.Column("user_id", db.Integer, db.ForeignKey("course.id"))
 )
 
+likes_association_table = db.Table(
+    "likes_association_table",
+    db.Model.matadata,
+    db.Column("post_id",db.Integer,db.ForeignKey("posts.id")).
+    db.Column("user_id",db.Integer,db.ForeignKey("users.id"))
+)
+
 # classes
 class User(db.Model):
     """
