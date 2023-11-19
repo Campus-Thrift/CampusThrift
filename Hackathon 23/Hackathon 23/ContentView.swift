@@ -54,7 +54,7 @@ struct ContentView: View {
                     .cornerRadius(5)
                     .offset(x: -93.50, y: -136)
                 ZStack() {
-                    Text("H")
+                    Text("N")
                 }
                 .frame(width: 21, height: 21)
                 .offset(x: -28, y: -68.50)
