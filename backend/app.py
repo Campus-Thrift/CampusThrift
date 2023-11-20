@@ -77,7 +77,7 @@ def update_user(user_id):
     user.name = name
     user.balance = balance
     db.session.commit()
-    return success_response(user.serialize())
+    return success_response(user.serialize(),201)
 
 @app.route("/api/users/<int:user_id>/", methods = ["DELETE"])
 def delete_user(user_id):
@@ -108,7 +108,7 @@ def follow_user(user_id):
         return failure_response("Following user not found.")
     user.followed.append(follow_user)
     db.session.commit()
-    return success_response(user.serialize())
+    return success_response(user.serialize(),201)
 
 @app.route("/api/users/<int:user_id>/unfollow/", methods = ["POST"])
 def unfollow_user(user_id):
@@ -129,7 +129,7 @@ def unfollow_user(user_id):
         return failure_response("Following user not followed.", 400)
     user.followed.remove(follow_user)
     db.session.commit()
-    return success_response(user.serialize())
+    return success_response(user.serialize(),201)
 
 @app.route("/api/posts/")
 def get_all_post():
@@ -198,6 +198,8 @@ def buy_post(post_id,buyer_id):
     poster = User.query.filter_by(id = poster_id).first()
     if poster is None:
         return failure_response("poster not found")
+    if poster_id == buyer_id:
+        return failure_response("cannot buy your own item")
     if buyer.balance < post.price:
         return failure_response("not enough balance")
     post.user_id_buy = buyer_id
@@ -205,7 +207,39 @@ def buy_post(post_id,buyer_id):
     poster.balance = poster.balance + post.price
     buyer.bought.append(post)
     db.session.commit()
-    return success_response(post.serialize())
+    return success_response(post.serialize(),201)
+
+@app.route("/api/posts/<int:post_id>/<int:user_id>/update/",methods = ["POST"])
+def update_post(post_id,user_id):
+    user = User.query.filter_by(id = user_id).first()
+    if user is None:
+        return failure_response("user not found")
+    post = Post.query.filter_by(id=post_id).first()
+    if post is None:
+        return failure_response("post not found")
+    if post.user_id_post != user_id:
+        return failure_response("cannot update other's post")
+    body = json.loads(request.data)
+    username = body.get("username")
+    timestamp = body.get("timestamp")
+    photo = body.get("photo")
+    title = body.get("title")
+    description = body.get("description")
+    price = body.get("price")
+    if (username is None) or (timestamp is None) or (photo is None) or (title is None) or (description is None) or (price is None):
+        return failure_response("missing information")
+    user_id_post = user_id
+    user_id_buy = -1
+    post.username = username,
+    post.timestamp = timestamp,
+    post.photo = photo,
+    post.title = title,
+    post.description = description,
+    post.price = price,
+    post.user_id_post = user_id_post,
+    post.user_id_buy = user_id_buy
+    return success_response(post.serialize(),201)
+    
 
 @app.route("/api/posts/<int:post_id>/<int:user_id>/like/", methods = ["POST"])
 def like_post(post_id,user_id):
@@ -218,7 +252,7 @@ def like_post(post_id,user_id):
     user.liked.append(post)
     post.likes.append(user)
     db.session.commit()
-    return success_response(user.serialize())
+    return success_response(user.serialize(),201)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
