@@ -131,13 +131,46 @@ def unfollow_user(user_id):
     db.session.commit()
     return success_response(user.serialize(),201)
 
+@app.route("/api/users/<int:user_id>/cart/")
+def get_cart(user_id):
+    """
+    Endpoint for getting all posts in a user's cart
+    """
+    user = User.query.filter_by(id = user_id).first()
+    if user is None:
+        return failure_response("User not found.")
+    cart = [post.simple_serialize() for post in user.cart]
+    return success_response({"Cart":cart})
+
+@app.route("/api/users/<int:user_id>/cart/<int:post_id>/", methods = ["DELETE"])
+def remove_from_cart(user_id, post_id):
+    """
+    Endpoint for removing a post from a user's cart
+    """
+    user = User.query.filter_by(id = user_id).first()
+    if user is None:
+        return failure_response("User not found.")
+    post = Post.query.filter_by(id=post_id)
+    if post is None:
+        return failure_response("Post not found.")
+    if post not in user.cart:
+        return failure_response("Post not in cart.", 400)
+    user.cart.remove(post)
+    return success_response({"Cart":[post.simple_serialize() for post in user.cart]})
+
 @app.route("/api/posts/")
 def get_all_post():
+    """
+    Endpoint for getting all posts.
+    """
     posts = [post.serialize() for post in Post.query.all()]
     return success_response({"Posts":posts})
 
 @app.route("/api/posts/<int:user_id>/create/", methods = ["POST"])
 def create_post(user_id):
+    """
+    Endpoint for creating a post.
+    """
     user = User.query.filter_by(id=user_id).first()
     if user is None:
         return failure_response("user not found")
@@ -168,6 +201,9 @@ def create_post(user_id):
 
 @app.route("/api/posts/<int:post_id>/")
 def get_post_by_id(post_id):
+    """
+    Endpoint for getting a post by its id
+    """
     post = Post.query.filter_by(id = post_id).first()
     if post is None:
         return failure_response("post not found")
@@ -175,6 +211,9 @@ def get_post_by_id(post_id):
 
 @app.route("/api/posts/<int:post_id>/<int:user_id>/",methods= ["DELETE"])
 def delete_post_by_id(post_id,user_id):
+    """
+    Endpoint for deleting a post
+    """
     post = Post.query.filter_by(id = post_id).first()
     if post is None:
         return failure_response("post not found")
@@ -187,6 +226,9 @@ def delete_post_by_id(post_id,user_id):
     
 @app.route("/api/posts/<int:post_id>/<int:buyer_id>/buy/", methods = ["POST"])
 def buy_post(post_id,buyer_id):
+    """
+    Endpoint for buying a post.
+    """
     buyer = User.query.filter_by(id = buyer_id).first()
     if buyer is None:
         return failure_response("buyer not found")
@@ -211,6 +253,9 @@ def buy_post(post_id,buyer_id):
 
 @app.route("/api/posts/<int:post_id>/<int:user_id>/update/",methods = ["POST"])
 def update_post(post_id,user_id):
+    """
+    Endpoint for updating a post.
+    """
     user = User.query.filter_by(id = user_id).first()
     if user is None:
         return failure_response("user not found")
@@ -238,11 +283,14 @@ def update_post(post_id,user_id):
     post.price = price,
     post.user_id_post = user_id_post,
     post.user_id_buy = user_id_buy
+    db.session.commit()
     return success_response(post.serialize(),201)
-    
 
 @app.route("/api/posts/<int:post_id>/<int:user_id>/like/", methods = ["POST"])
 def like_post(post_id,user_id):
+    """
+    Endpoint for a user liking a post.
+    """
     user = User.query.filter_by(id = user_id).first()
     if user is None:
         return failure_response("user not found")
@@ -250,9 +298,27 @@ def like_post(post_id,user_id):
     if post is None:
         return failure_response("post not found")
     user.liked.append(post)
-    post.likes.append(user)
     db.session.commit()
     return success_response(user.serialize(),201)
+
+@app.route("/api/posts/<int:post_id>/<int:user_id>/addtocart/", methods = ["POST"])
+def add_post_to_cart(post_id, user_id):
+    """
+    Endpoint for adding a post to a user's cart
+    """
+    user = User.query.filter_by(id = user_id).first()
+    if user is None:
+        return failure_response("User not found.")
+    post = Post.query.filter_by(id = post_id).first()
+    if post is None:
+        return failure_response("Post not found.")
+    if post in user.posts:
+        return failure_response("Cannot add your own post to your cart.", 400)
+    if post in user.cart:
+        return failure_response("Post already in cart.", 400)
+    user.cart.append(post)
+    db.session.commit()
+    return success_response({"Cart":[post.simple_serialize() for post in user.cart]})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)

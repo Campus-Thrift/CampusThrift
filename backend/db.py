@@ -10,11 +10,18 @@ follow = db.Table (
     db.Column("followed_id", db.Integer, db.ForeignKey("user.id"))
 )
 
-likes_association_table = db.Table(
+likes_association_table = db.Table (
     "likes_association_table",
     db.Model.metadata,
     db.Column("post_id",db.Integer,db.ForeignKey("post.id")),
     db.Column("user_id",db.Integer,db.ForeignKey("user.id"))
+)
+
+cart_association_table = db.Table (
+    "cart_association_table",
+    db.Model.metadata,
+    db.Column("user_id",db.Integer,db.ForignKey("user.id")),
+    db.Column("post_id",db.Integer,db.ForeignKey("post.id"))
 )
 
 # classes
@@ -33,7 +40,6 @@ class User(db.Model):
                                 secondaryjoin=(follow.c.follower_id == id),
                                 backref="followed_ref",
                                 foreign_keys=[follow.c.followed_id, follow.c.follower_id])
-
     followed = db.relationship("User",
                                 secondary=follow,
                                 primaryjoin=(follow.c.follower_id == id),
@@ -46,6 +52,9 @@ class User(db.Model):
     posts = db.relationship("Post",
                             foreign_keys="Post.user_id_post",
                             cascade = "delete")
+    cart = db.relationship("Post",
+                           secondary=cart_association_table,
+                           back_populates = "carted")
     bought = db.relationship("Post",
                              foreign_keys="Post.user_id_buy",
                              cascade = "delete")
@@ -72,7 +81,8 @@ class User(db.Model):
             "followed": [f.simple_serialize() for f in self.followed],
             "posts": [p.simple_serialize() for p in self.posts],
             "bought": [p.simple_serialize() for p in self.bought],
-            "liked": [l.simple_serialize() for l in self.liked]
+            "cart": [p.simple_serialize() for p in self.bought],
+            "liked": [p.simple_serialize() for p in self.liked]
         }
     
     def simple_serialize(self):
@@ -103,6 +113,9 @@ class Post(db.Model):
                             secondary = likes_association_table,
                             back_populates = "liked")
     user_id_post = db.Column(db.Integer,db.ForeignKey("user.id"),nullable =False)
+    carted = db.relationship("User",
+                                   secondary = cart_association_table,
+                                   back_populates = "cart")
     user_id_buy = db.Column(db.Integer,db.ForeignKey("user.id"),nullable = False)
     
     def __init__(self,**kwargs):
