@@ -259,6 +259,8 @@ def buy_post(post_id,buyer_id):
     post = Post.query.filter_by(id = post_id).first()
     if post is None:
         return failure_response("post not found")
+    if post.user_id_buy != -1:
+        return failure_response("the post is already being bought")
     #find the user who post the post
     poster_id = post.user_id_post
     poster = User.query.filter_by(id = poster_id).first()
@@ -343,6 +345,16 @@ def add_post_to_cart(post_id, user_id):
     user.cart.append(post)
     db.session.commit()
     return success_response({"Cart":[post.simple_serialize() for post in user.cart]})
+
+@app.route("/api/posts/<int:post_id>/checkstatus/")
+def check_post_status(post_id):
+    post = Post.query.filter_by(id=post_id).first()
+    if post is None:
+        return failure_response("Post not found")
+    if post.user_id_buy == -1:
+        return success_response("post unbought")
+    else:
+        return success_response("post bought")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
