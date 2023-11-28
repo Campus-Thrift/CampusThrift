@@ -235,6 +235,8 @@ def buy_post(post_id,buyer_id):
     post = Post.query.filter_by(id = post_id).first()
     if post is None:
         return failure_response("post not found")
+    if post.user_id_buy != -1:
+        return failure_response("the post is already being bought")
     #find the user who post the post
     poster_id = post.user_id_post
     poster = User.query.filter_by(id = poster_id).first()
