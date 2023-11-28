@@ -320,5 +320,15 @@ def add_post_to_cart(post_id, user_id):
     db.session.commit()
     return success_response({"Cart":[post.simple_serialize() for post in user.cart]})
 
+@app.route("/api/posts/<int:post_id>/checkstatus/")
+def check_post_status(post_id):
+    post = Post.query.filter_by(id=post_id).first()
+    if post is None:
+        return failure_response("Post not found")
+    if post.user_id_buy == -1:
+        return success_response("post unbought")
+    else:
+        return success_response("post bought")
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
