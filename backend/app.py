@@ -158,6 +158,30 @@ def remove_from_cart(user_id, post_id):
     user.cart.remove(post)
     return success_response({"Cart":[post.simple_serialize() for post in user.cart]})
 
+@app.route("/api/users/<int:user_id>/cart/checkout/", methods = ["POST"])
+def checkout_cart(user_id):
+    """
+    Endpoint for checking out a cart
+    """
+    user = User.query.filter_by(id = user_id).first()
+    if user is None:
+        return failure_response("User not found.")
+    total = 0.0
+    for post in user.cart:
+        total += post.price
+    if total > user.balance:
+        return failure_response("User has insufficient balance.", 400)
+    for post in user.cart:
+        post.user_id_buy = user_id
+        user.bought.append(post)
+        users_with_post_in_cart = User.query.filter(User.cart.any(id=post.id)).all()
+        for u in users_with_post_in_cart:
+            if post in u.cart:
+                u.cart.remove(post)
+    user.cart = []
+    db.session.commit()
+    return success_response({"Cart": [post.simple_serialize() for post in user.cart], "Bought": [post.simple_serialize() for post in user.bought]})
+
 @app.route("/api/posts/")
 def get_all_post():
     """

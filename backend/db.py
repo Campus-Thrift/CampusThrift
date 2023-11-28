@@ -20,7 +20,7 @@ likes_association_table = db.Table (
 cart_association_table = db.Table (
     "cart_association_table",
     db.Model.metadata,
-    db.Column("user_id",db.Integer,db.ForignKey("user.id")),
+    db.Column("user_id",db.Integer,db.ForeignKey("user.id")),
     db.Column("post_id",db.Integer,db.ForeignKey("post.id"))
 )
 
