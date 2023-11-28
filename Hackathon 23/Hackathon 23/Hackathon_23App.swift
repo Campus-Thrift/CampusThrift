@@ -11,7 +11,8 @@ import SwiftUI
 struct Hackathon_23App: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Home()
+            NavigationBarandHeader()
         }
     }
 }
