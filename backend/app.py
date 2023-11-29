@@ -5,7 +5,7 @@ from flask import Flask,request
 import os
 
 # define db filename
-db_filename = "todo.db"
+db_filename = "data.db"
 app = Flask(__name__)
 
 # setup config

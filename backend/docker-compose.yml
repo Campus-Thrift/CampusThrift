@@ -1,0 +1,7 @@
+version: "3"
+
+services:
+  demo:
+    image: daisychang/hackchallenge:latest
+    ports:
+      - "80:8000"
