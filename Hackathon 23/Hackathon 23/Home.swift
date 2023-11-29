@@ -31,7 +31,7 @@ struct Home: View {
                 Text("App Name")
                     .font(Font.custom("Rubik-Light", size: 32).weight(.light))
                     .foregroundColor(.black)
-                    .offset(x: 0.50, y: -341)
+                    .offset(x: 0, y: -341)
                 Text("Following")
                     .font(Font.custom("Inria Serif", size: 16))
                     .foregroundColor(.black)

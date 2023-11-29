@@ -11,6 +11,11 @@
 		2A4420532B09A7CC00DCD949 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4420522B09A7CC00DCD949 /* Home.swift */; };
 		2A4420552B09A7CE00DCD949 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A4420542B09A7CE00DCD949 /* Assets.xcassets */; };
 		2A4420582B09A7CE00DCD949 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A4420572B09A7CE00DCD949 /* Preview Assets.xcassets */; };
+		2A4A15072B166B4400D19938 /* ProfilePurchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4A15062B166B4400D19938 /* ProfilePurchases.swift */; };
+		2A4A15092B166B5C00D19938 /* ProfileFollowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4A15082B166B5C00D19938 /* ProfileFollowing.swift */; };
+		2A4A150B2B166B7B00D19938 /* ProfileLikes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4A150A2B166B7B00D19938 /* ProfileLikes.swift */; };
+		2A4A150D2B166B8600D19938 /* OthersProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4A150C2B166B8600D19938 /* OthersProfile.swift */; };
+		2A4A150F2B1687F500D19938 /* CartRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4A150E2B1687F400D19938 /* CartRowView.swift */; };
 		2A4B3A7E2B16458100AD16AD /* rubik in Resources */ = {isa = PBXBuildFile; fileRef = 2A4B3A7D2B16458100AD16AD /* rubik */; };
 		2AB1B5E92B16481D00459EBB /* Navigation Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB1B5E82B16481D00459EBB /* Navigation Bar.swift */; };
 		2AB1B5EB2B164AEF00459EBB /* Shopping Cart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB1B5EA2B164AEF00459EBB /* Shopping Cart.swift */; };
@@ -26,6 +31,11 @@
 		2A4420522B09A7CC00DCD949 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		2A4420542B09A7CE00DCD949 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2A4420572B09A7CE00DCD949 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2A4A15062B166B4400D19938 /* ProfilePurchases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePurchases.swift; sourceTree = "<group>"; };
+		2A4A15082B166B5C00D19938 /* ProfileFollowing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFollowing.swift; sourceTree = "<group>"; };
+		2A4A150A2B166B7B00D19938 /* ProfileLikes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLikes.swift; sourceTree = "<group>"; };
+		2A4A150C2B166B8600D19938 /* OthersProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthersProfile.swift; sourceTree = "<group>"; };
+		2A4A150E2B1687F400D19938 /* CartRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartRowView.swift; sourceTree = "<group>"; };
 		2A4B3A7D2B16458100AD16AD /* rubik */ = {isa = PBXFileReference; lastKnownFileType = folder; name = rubik; path = "Hackathon 23/rubik"; sourceTree = SOURCE_ROOT; };
 		2A4B3A7F2B1645E800AD16AD /* Hackathon-23-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Hackathon-23-Info.plist"; sourceTree = SOURCE_ROOT; };
 		2AB1B5E82B16481D00459EBB /* Navigation Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Navigation Bar.swift"; sourceTree = "<group>"; };
@@ -71,10 +81,15 @@
 				2A4420522B09A7CC00DCD949 /* Home.swift */,
 				2AB1B5E82B16481D00459EBB /* Navigation Bar.swift */,
 				2AB1B5EA2B164AEF00459EBB /* Shopping Cart.swift */,
+				2A4A15102B16902E00D19938 /* Views */,
 				2AB1B5EC2B164B0200459EBB /* Checkout.swift */,
 				2AB1B5EE2B164B1D00459EBB /* Image Pop-Up.swift */,
 				2AB1B5F02B164B2D00459EBB /* Add.swift */,
 				2AB1B5F22B164B3E00459EBB /* ProfileListing.swift */,
+				2A4A15062B166B4400D19938 /* ProfilePurchases.swift */,
+				2A4A15082B166B5C00D19938 /* ProfileFollowing.swift */,
+				2A4A150A2B166B7B00D19938 /* ProfileLikes.swift */,
+				2A4A150C2B166B8600D19938 /* OthersProfile.swift */,
 				2A4B3A7D2B16458100AD16AD /* rubik */,
 				2A4420542B09A7CE00DCD949 /* Assets.xcassets */,
 				2A4420562B09A7CE00DCD949 /* Preview Content */,
@@ -88,6 +103,14 @@
 				2A4420572B09A7CE00DCD949 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		2A4A15102B16902E00D19938 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2A4A150E2B1687F400D19938 /* CartRowView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,11 +187,16 @@
 				2AB1B5EB2B164AEF00459EBB /* Shopping Cart.swift in Sources */,
 				2AB1B5E92B16481D00459EBB /* Navigation Bar.swift in Sources */,
 				2AB1B5F32B164B3E00459EBB /* ProfileListing.swift in Sources */,
+				2A4A15072B166B4400D19938 /* ProfilePurchases.swift in Sources */,
 				2AB1B5F12B164B2D00459EBB /* Add.swift in Sources */,
 				2AB1B5ED2B164B0200459EBB /* Checkout.swift in Sources */,
 				2A4420532B09A7CC00DCD949 /* Home.swift in Sources */,
+				2A4A150B2B166B7B00D19938 /* ProfileLikes.swift in Sources */,
+				2A4A150F2B1687F500D19938 /* CartRowView.swift in Sources */,
+				2A4A150D2B166B8600D19938 /* OthersProfile.swift in Sources */,
 				2A4420512B09A7CC00DCD949 /* Hackathon_23App.swift in Sources */,
 				2AB1B5EF2B164B1D00459EBB /* Image Pop-Up.swift in Sources */,
+				2A4A15092B166B5C00D19938 /* ProfileFollowing.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
