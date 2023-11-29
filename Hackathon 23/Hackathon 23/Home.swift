@@ -63,6 +63,9 @@ struct Home: View {
                             .frame(width: 170, height: 170)
                             .clipShape(RoundedRectangle(cornerRadius: 5))
                             .offset(y: 105)
+                            .overlay(
+                                LikeButton()
+                                    .offset(x: 65, y: 170))
                     }
                 }
             }

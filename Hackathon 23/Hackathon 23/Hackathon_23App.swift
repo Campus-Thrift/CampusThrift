@@ -11,8 +11,11 @@ import SwiftUI
 struct Hackathon_23App: App {
     var body: some Scene {
         WindowGroup {
-            Home()
-            NavigationBarandHeader()
+            TabView {
+                Home()
+                Add()
+                Profile()
+            }
         }
     }
 }

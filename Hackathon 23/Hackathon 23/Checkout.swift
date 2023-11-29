@@ -198,6 +198,7 @@ struct Checkout: View {
                         .offset(x: -110, y: 10)
                     Spacer()
                     Spacer()
+                    Spacer()
                     Image("image5")
                         .resizable()
                         .scaledToFill()

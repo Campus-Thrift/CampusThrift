@@ -9,8 +9,10 @@ import SwiftUI
 
 struct NavigationBarandHeader: View {
     
+    @State private var isHomeClicked = false
+    @State private var showHomeView = false
+    
     var body: some View {
-        
         //cornell logo
         Image("cornell")
             .resizable()
@@ -38,12 +40,23 @@ struct NavigationBarandHeader: View {
             .offset(y: 363)
         
         //house icon
-        Image("home")
-            .resizable()
-            .scaledToFill()
-            .frame(width: 32, height: 32)
-            .offset(x: -132.50, y: 396)
+//Button(action: {
+//            self.isHomeClicked.toggle()
+//        }) {
+//            NavigationView(content: {
+//                NavigationLink(destination: Home()) {
+                    Image(isHomeClicked ? "home-red" : "home")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 32, height: 32)
+                        .offset(x: -132.50, y: 396)
+//                }
+//            })
+//
+//        }
         
+
+
         //plus icon
         Image("plus")
             .resizable()
@@ -59,5 +72,4 @@ struct NavigationBarandHeader: View {
             .offset(x: 135.5, y: 396)
     }
 }
-
 
