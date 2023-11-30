@@ -29,6 +29,12 @@ def failure_response(message, code=404):
 
 # routes
 @app.route("/")
+def base():
+    """
+    Base endpoint
+    """
+    return "Hello World!"
+
 @app.route("/api/")
 
 # routes for users
