@@ -25,3 +25,22 @@ struct LikeButton: View {
     }
 
 }
+
+struct LikeButtonIPU: View {
+    
+    @State private var isLiked = false
+    
+    var body: some View {
+        Button(action: {
+            self.isLiked.toggle()
+        }) {
+            Image(systemName: isLiked ? "heart.fill" : "heart")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 36, height: 36)
+                .foregroundColor(isLiked ? .red : .gray)
+//                .offset(x: 5, y: 5)
+        }
+    }
+
+}
