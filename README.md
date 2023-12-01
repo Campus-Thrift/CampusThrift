@@ -27,6 +27,27 @@ Within the profile section of the app, users can view their like history, post h
 ### Get all users
 GET /api/users/
 
+Response:
+```
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Daisy Chang",
+            "netid": "dmc387",
+            "balance": 10.00,
+            "followers": [ <SERIALIZED FOLLOWER WITH ONLY ID, NAME, NETID, AND BALANCE>, ... ],
+            "followed": [ <SERIALIZED FOLLOWER WITH ONLY ID, NAME, NETID, AND BALANCE>, ... ],
+            "posts": [ <SERIALIZED POST WITHOUT THE USER POST AND BUY ID>, ... ],
+            "bought": [ <SERIALIZED POST WITHOUT THE USER POST AND BUY ID>, ... ],
+            "cart": [ <SERIALIZED POST WITHOUT THE USER POST AND BUY ID>, ... ],
+            "liked": [ <SERIALIZED POST WITHOUT THE USER POST AND BUY ID>, ... ]
+        },
+        ...
+    ]
+}
+```
+
 ### Create a new user
 POST /api/users/
 
