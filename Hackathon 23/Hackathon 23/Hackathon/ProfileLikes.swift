@@ -60,7 +60,7 @@ struct ProfileLikes: View {
                 .cornerRadius(5)
                 .overlay(
             Text("Edit Profile")
-                .font(Font.custom("Rubik", size: 16).weight(.light))
+                .font(Font.custom("Rubik-Light", size: 16).weight(.light))
                 .foregroundColor(.black))
             Spacer()
             Spacer()

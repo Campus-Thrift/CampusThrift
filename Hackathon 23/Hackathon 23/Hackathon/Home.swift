@@ -51,11 +51,11 @@ struct Home: View {
             Spacer()
             HStack(spacing: 130) {
                 Text("Following")
-                    .font(Font.custom("Inria Serif", size: 16))
+                    .font(Font.custom("Rubik-Light", size: 16))
                     .foregroundColor(.black)
                     .offset(x: -5)
                 Text("Public")
-                    .font(Font.custom("Inria Serif", size: 16))
+                    .font(Font.custom("Rubik-Light", size: 16))
                     .foregroundColor(.black)
                     .offset(x: -17)
             }
@@ -88,10 +88,10 @@ struct Home: View {
                                 }
                             }
                             Text("Lorem ipsum")
-                                .font(Font.custom("Rubik", size: 16).weight(.light))
+                                .font(Font.custom("Rubik-Light", size: 16).weight(.light))
                                 .foregroundColor(Color(red: 0.16, green: 0.18, blue: 0.20))
                             Text("$0.00")
-                                .font(Font.custom("Rubik", size: 16).weight(.light))
+                                .font(Font.custom("Rubik-Light", size: 16).weight(.light))
                                 .foregroundColor(Color(red: 0.16, green: 0.18, blue: 0.20))
                         }
                     }

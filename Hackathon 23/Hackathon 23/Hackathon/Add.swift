@@ -63,12 +63,12 @@ struct Add: View {
                     }
                 })
             Spacer()
-            VStack (spacing: 15) {
+            VStack (spacing: 10) {
                 Text("Enter Title")
                     .font(Font.custom("Rubik", size: 32).weight(.light))
                     .foregroundColor(Color(red: 0.16, green: 0.18, blue: 0.20))
                 Rectangle().fill(Color.gray).frame(width: .infinity, height: 0.50, alignment: .center)
-                HStack (spacing: 210) {
+                HStack (spacing: 213) {
                     Text("Size")
                         .font(Font.custom("Rubik", size: 24).weight(.light))
                         .foregroundColor(Color(red: 0.35, green: 0.36, blue: 0.37))
@@ -112,8 +112,8 @@ struct Add: View {
                         .cornerRadius(5)
                 }
             }
-            Spacer()
-            Spacer()
+//            Spacer()
+//            Spacer()
             Rectangle()
                 .fill(Color.black).frame(width: .infinity, height: 0.50, alignment: .center)
             Rectangle()
