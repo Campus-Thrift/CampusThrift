@@ -212,8 +212,16 @@ def create_post(user_id):
     title = body.get("title")
     description = body.get("description")
     price = body.get("price")
-    if (username is None) or (photo is None) or (title is None) or (description is None) or (price is None):
-        return failure_response("missing information")
+    if username is None:
+        return failure_response("missing username", 400)
+    if photo is None:
+        return failure_response("missing photo", 400)
+    if title is None:
+        return failure_response("missing title", 400)
+    if description is None:
+        return failure_response("missing description", 400)
+    if price is None:
+        return failure_response("missing price", 400)
     user_id_post = user_id
     user_id_buy = -1
     new_post = Post(
@@ -253,7 +261,7 @@ def delete_post_by_id(post_id,user_id):
         db.session.delete(post)
         db.session.commit()
         return success_response(post.serialize())
-    return failure_response("can not delete other's post")
+    return failure_response("can not delete other's post", 400)
     
 @app.route("/api/posts/<int:post_id>/<int:buyer_id>/buy/", methods = ["POST"])
 def buy_post(post_id,buyer_id):
@@ -267,16 +275,16 @@ def buy_post(post_id,buyer_id):
     if post is None:
         return failure_response("post not found")
     if post.user_id_buy != -1:
-        return failure_response("the post is already being bought")
+        return failure_response("the post is already being bought", 400)
     #find the user who post the post
     poster_id = post.user_id_post
     poster = User.query.filter_by(id = poster_id).first()
     if poster is None:
         return failure_response("poster not found")
     if poster_id == buyer_id:
-        return failure_response("cannot buy your own item")
+        return failure_response("cannot buy your own item", 400)
     if buyer.balance < post.price:
-        return failure_response("not enough balance")
+        return failure_response("not enough balance", 400)
     post.user_id_buy = buyer_id
     buyer.balance = buyer.balance - post.price
     poster.balance = poster.balance + post.price
@@ -300,20 +308,18 @@ def update_post(post_id,user_id):
     if post is None:
         return failure_response("post not found")
     if post.user_id_post != user_id:
-        return failure_response("cannot update other's post")
+        return failure_response("cannot update other's post", 400)
     body = json.loads(request.data)
     username = body.get("username")
-    timestamp = body.get("timestamp")
     photo = body.get("photo")
     title = body.get("title")
     description = body.get("description")
     price = body.get("price")
-    if (username is None) or (timestamp is None) or (photo is None) or (title is None) or (description is None) or (price is None):
-        return failure_response("missing information")
+    if (username is None) or (photo is None) or (title is None) or (description is None) or (price is None):
+        return failure_response("missing information", 400)
     user_id_post = user_id
     user_id_buy = -1
     post.username = username,
-    post.timestamp = timestamp,
     post.photo = photo,
     post.title = title,
     post.description = description,
