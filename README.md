@@ -51,17 +51,125 @@ Response:
 ### Create a new user
 POST /api/users/
 
+Request:
+```
+{
+    "name": "Daisy Chang",
+    "netid": "dmc387"
+    "balance": 100.0
+}
+```
+Response:
+```
+{
+    "id": 1,
+    "name": "Daisy Chang",
+    "netid": "dmc387",
+    "balance": 100.0,
+    "followers": [],
+    "followed": [],
+    "posts": [],
+    "bought": [],
+    "cart": [],
+    "liked": []
+}
+```
+
 ### Get user by id
 GET /api/users/{user_id}/
+
+Response:
+```
+{
+    "id": 1,
+    "name": "Daisy Chang",
+    "netid": "dmc387",
+    "balance": 100.0,
+    "followers": [],
+    "followed": [],
+    "posts": [],
+    "bought": [],
+    "cart": [],
+    "liked": []
+}
+```
 
 ### Update user by id
 POST /api/users/{user_id}/
 
+Request:
+```
+{
+    "name": "John Smith",
+    "balance": 200.0
+}
+```
+Response:
+```
+{
+    "id": 1,
+    "name": "John Smith",
+    "netid": "dmc387",
+    "balance": 200.0,
+    "followers": [],
+    "followed": [],
+    "posts": [],
+    "bought": [],
+    "cart": [],
+    "liked": []
+}
+```
+
 ### Delete user by id
 DEL /api/users/{user_id}
 
+Response:
+```
+{
+    "id": 1,
+    "name": "Daisy Chang",
+    "netid": "dmc387",
+    "balance": 200.0,
+    "followers": [],
+    "followed": [],
+    "posts": [],
+    "bought": [],
+    "cart": [],
+    "liked": []
+}
+```
+
 ### Follow user
 POST /api/users/{user_id}/follow/
+
+Request:
+```
+{
+    "user_id": 2
+}
+```
+Response:
+```
+{
+    "id": 1,
+    "name": "Daisy Chang",
+    "netid": "dmc387",
+    "balance": 200.0,
+    "followers": [],
+    "followed": [
+        {
+            "id": 2,
+            "name": "Naakai McDonald",
+            "netid": "nm563",
+            "balance": 30.0
+        }
+    ],
+    "posts": [],
+    "bought": [],
+    "cart": [],
+    "liked": []
+}
+```
 
 ### Unfollow user
 POST /api/users/{user_id}/unfollow/
