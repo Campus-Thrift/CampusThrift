@@ -327,23 +327,161 @@ Response:
 ### Get post by id
 GET /api/posts/{post_id}/
 
+Response:
+```
+{
+    "id": 1,
+    "username": "Daisy Chang",
+    "timestamp": "2023-12-01 05:10:13",
+    "photo": "https://web.com/myimage.jpg",
+    "title": "Red Shirt",
+    "description": "Size medium",
+    "price": 20.0,
+    "user_id_post": 1,
+    "user_id_buy": -1
+}
+```
+
 ### Delete post by id
 DEL /api/posts/{post_id}/{user_id}/
+
+Response:
+```
+{
+    "id": 1,
+    "username": "Daisy Chang",
+    "timestamp": "2023-12-01 05:10:13",
+    "photo": "https://web.com/myimage.jpg",
+    "title": "Red Shirt",
+    "description": "Size medium",
+    "price": 20.0,
+    "user_id_post": 1,
+    "user_id_buy": -1
+}
+```
 
 ### Buy post
 POST /api/posts/{post_id}/{buyer_id}/buy/
 
+Response:
+```
+{
+    "id": 1,
+    "username": "Daisy Chang",
+    "timestamp": "2023-12-01 05:10:13",
+    "photo": "https://web.com/myimage.jpg",
+    "title": "Red Shirt",
+    "description": "Size medium",
+    "price": 20.0,
+    "user_id_post": 1,
+    "user_id_buy": 2
+}
+```
+
 ### Update post by id
 POST /api/posts/{post_id}/{user_id}/update/
+
+Request:
+```
+{
+    "photo": "https://web.com/newimage.jpg",
+    "title": "Blue Shirt",
+    "description": "Size large",
+    "price": "15.0"
+}
+```
+Response:
+```
+{
+    "id": 1,
+    "username": "Daisy Chang",
+    "timestamp": "2023-12-01 05:10:13",
+    "photo": "https://web.com/newimage.jpg",
+    "title": "Blue Shirt",
+    "description": "Size large",
+    "price": 15.0,
+    "user_id_post": 1,
+    "user_id_buy": -1
+}
+```
 
 ### Like post
 POST /api/posts/{post_id}/{user_id}/like/
 
+Response:
+```
+{
+    "id": 1,
+    "name": "Daisy Chang",
+    "netid": "dmc387",
+    "balance": 200.0,
+    "followers": [],
+    "followed": [],
+    "posts": [],
+    "bought": [],
+    "cart": [],
+    "liked": [
+        {
+            "id": 2,
+            "username": "Naakai McDonald",
+            "timestamp": "2023-12-01 05:10:13",
+            "photo": "https://web.com/pants.jpg",
+            "title": "Pants",
+            "description": "Size 2 women's",
+            "price": 25.0,
+            "user_id_post": 1,
+            "user_id_buy": -1
+        }
+    ]
+}
+```
+
 ### Unlike post
 POST /api/posts/{post_id}/{user_id}/removelike/
+
+Response:
+```
+{
+    "id": 1,
+    "name": "Daisy Chang",
+    "netid": "dmc387",
+    "balance": 200.0,
+    "followers": [],
+    "followed": [],
+    "posts": [],
+    "bought": [],
+    "cart": [],
+    "liked": []
+}
+```
 
 ### Add post to cart
 POST /api/posts/{post_id}/{user_id}/addtocart/
 
-### Get post status
-GET /api/posts/{post_id}/checkstatus/
+Response:
+```
+{
+    "id": 1,
+    "name": "Daisy Chang",
+    "netid": "dmc387",
+    "balance": 200.0,
+    "followers": [],
+    "followed": [],
+    "posts": [],
+    "bought": [],
+    "cart": [
+        {
+            "id": 2,
+            "username": "Naakai McDonald",
+            "timestamp": "2023-12-01 05:10:13",
+            "photo": "https://web.com/pants.jpg",
+            "title": "Pants",
+            "description": "Size 2 women's",
+            "price": 25.0,
+            "user_id_post": 1,
+            "user_id_buy": -1
+        }
+    ],
+    "liked": []
+}
+```
