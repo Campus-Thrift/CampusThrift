@@ -280,6 +280,10 @@ def buy_post(post_id,buyer_id):
     buyer.balance = buyer.balance - post.price
     poster.balance = poster.balance + post.price
     buyer.bought.append(post)
+    users_with_post_in_cart = User.query.filter(User.cart.any(id=post.id)).all()
+    for u in users_with_post_in_cart:
+        if post in u.cart:
+            u.cart.remove(post)
     db.session.commit()
     return success_response(post.serialize(),201)
 
@@ -332,6 +336,23 @@ def like_post(post_id,user_id):
     user.liked.append(post)
     db.session.commit()
     return success_response(user.serialize(),201)
+
+@app.route("/api/posts/<int:post_id>/<int:user_id>/removelike/", methods = ["POST"])
+def remove_like_from_post(post_id,user_id):
+    """
+    Endpoint for removing a like from a post
+    """
+    user = User.query.filter_by(id = user_id).first()
+    if user is None:
+        return failure_response("user not found")
+    post = Post.query.filter_by(id = post_id).first()
+    if post is None:
+        return failure_response("post not found")
+    if post not in user.liked:
+        return failure_response("post not liked by user.", 400)
+    user.liked.remove(post)
+    db.session.commit()
+    return success_response({"Liked": [post.simple_serialize() for post in user.liked]})
 
 @app.route("/api/posts/<int:post_id>/<int:user_id>/addtocart/", methods = ["POST"])
 def add_post_to_cart(post_id, user_id):
