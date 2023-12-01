@@ -51,6 +51,8 @@ Response:
 ### Create a new user
 POST /api/users/
 
+Note: the balance field is optional
+
 Request:
 ```
 {
@@ -96,6 +98,8 @@ Response:
 
 ### Update user by id
 POST /api/users/{user_id}/
+
+Note: all fields are optional
 
 Request:
 ```
@@ -380,6 +384,8 @@ Response:
 
 ### Update post by id
 POST /api/posts/{post_id}/{user_id}/update/
+
+Note: all fields are optional
 
 Request:
 ```
