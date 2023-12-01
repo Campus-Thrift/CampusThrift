@@ -212,7 +212,7 @@ def create_post(user_id):
     title = body.get("title")
     description = body.get("description")
     price = body.get("price")
-    if (username is None) or (timestamp is None) or (photo is None) or (title is None) or (description is None) or (price is None):
+    if (username is None) or (photo is None) or (title is None) or (description is None) or (price is None):
         return failure_response("missing information")
     user_id_post = user_id
     user_id_buy = -1
