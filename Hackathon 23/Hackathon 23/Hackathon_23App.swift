@@ -13,8 +13,17 @@ struct Hackathon_23App: App {
         WindowGroup {
             TabView {
                 Home()
+                    .tabItem{
+                        Label("Home", systemImage: "home")
+                    }
                 Add()
-                Profile()
+                    .tabItem{
+                        Label("Post", systemImage: "plus")
+                    }
+                ProfileLikes()
+                    .tabItem{
+                        Label("Profile", systemImage: "profile")
+                    }
             }
         }
     }
