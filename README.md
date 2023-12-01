@@ -202,7 +202,7 @@ GET /api/users/{user_id}/cart/
 Response:
 ```
 {
-    "cart": [
+    "Cart": [
         {
             "id": 2,
             "username": "Naakai McDonald",
@@ -236,7 +236,7 @@ DEL /api/users/{user_id}/cart/{post_id}/
 Response:
 ```
 {
-    "cart": [
+    "Cart": [
         {
             "id": 2,
             "username": "Naakai McDonald",
@@ -259,15 +259,70 @@ POST /api/users/{user_id}/cart/checkout/
 Response:
 ```
 {
-    "cart": []
+    "Cart": []
 }
 ```
 
 ### Get all posts
 GET /api/posts/
 
+Response:
+```
+{
+    "Posts": [
+        {
+            "id": 2,
+            "username": "Naakai McDonald",
+            "timestamp": "2023-12-01 05:10:13",
+            "photo": "https://ik.imagekit.io/pi9lsweb7gk/tr:w-344,h-340/87257c8a92c00154694fef7c863cb0cf_thumb.jpeg",
+            "title": "Plaid Pajama Sweatpants",
+            "description": "Size L, lightly worn.",
+            "price": 20.0,
+            "user_id_post": 3,
+            "user_id_buy": -1
+        },
+        {
+            "id": 3,
+            "username": "Naakai McDonald",
+            "timestamp": "2023-12-01 21:15:24",
+            "photo": "https://di2ponv0v5otw.cloudfront.net/posts/2023/02/19/63f2acada0e6c682324b05e2/s_63f2acbb8d7a3c1fec5f0393.jpg",
+            "title": "Cornell Hockey Beanie",
+            "description": "Moderately worn, some fraying on the ends.",
+            "price": 15.0,
+            "user_id_post": 3,
+            "user_id_buy": -1
+        },
+        ...
+    ]
+}
+```
+
 ### Create a post
 POST /api/posts/{user_id}/create/
+
+Request:
+```
+{
+    "photo": "https://web.com/myimage.jpg",
+    "title": "Red Shirt",
+    "descripttion": "Size medium",
+    "price": 20.00
+}
+```
+Response:
+```
+{
+    "id": 1,
+    "username": "Daisy Chang",
+    "timestamp": "2023-12-01 05:10:13",
+    "photo": "https://web.com/myimage.jpg",
+    "title": "Red Shirt",
+    "description": "Size medium",
+    "price": 20.0,
+    "user_id_post": 1,
+    "user_id_buy": -1
+}
+```
 
 ### Get post by id
 GET /api/posts/{post_id}/
