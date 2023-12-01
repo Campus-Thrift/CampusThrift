@@ -24,6 +24,8 @@ Within the profile section of the app, users can view their like history, post h
 - Deployed backend to Google Cloud.
 
 ## API Specification
+Server URL: [http://34.86.23.184/](http://34.86.23.184/)
+
 ### Get all users
 GET /api/users/
 
