@@ -104,7 +104,7 @@ class Post(db.Model):
     __tablename__ = "post"
     id = db.Column(db.Integer,primary_key = True,autoincrement = True)
     username = db.Column(db.String,nullable = False)
-    timestamp = db.Column(db.Integer,nullable = False)
+    timestamp = db.Column(db.String,nullable = False)
     photo = db.Column(db.String,nullable = False)
     title = db.Column(db.String,nullable = False)
     description = db.Column(db.String,nullable = False)
@@ -123,11 +123,11 @@ class Post(db.Model):
         Initializes a Post object.
         """
         self.username = kwargs.get("username")
-        self.timestamp = int(kwargs.get("timestamp"))
+        self.timestamp = kwargs.get("timestamp")
         self.photo = kwargs.get("photo")
         self.title = kwargs.get("title")
         self.description = kwargs.get("description")
-        self.price = int(kwargs.get("price"))
+        self.price = kwargs.get("price")
         self.user_id_post = kwargs.get("user_id_post")
         self.user_id_buy = kwargs.get("user_id_buy",-1)
         
