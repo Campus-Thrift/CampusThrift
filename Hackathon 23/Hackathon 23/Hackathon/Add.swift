@@ -55,11 +55,11 @@ struct Add: View {
                         }
                 if let selectedPhotoData,
                     let image = UIImage(data: selectedPhotoData) {
-                     
                     Image(uiImage: image)
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 348, height: 291)
+                        .frame(width: 40, height: 291)
+                        .offset(x: -178)
                     }
                 })
             Spacer()
@@ -125,35 +125,9 @@ struct Add: View {
             Text("POST")
                 .font(Font.custom("Rubik-Bold", size: 32).weight(.bold))
                 .foregroundColor(.black))
-            //navigation bar line
-            Rectangle().fill(Color.black).frame(width: .infinity, height: 1, alignment: .bottom)
-//                .offset(y: 363)
             Spacer()
             Spacer()
-            HStack(spacing: 110) {
-                //house icon
-                Image("home")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 32, height: 32)
-
-                //plus icon
-                Image("plus")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 34, height: 34)
-
-                //person icon
-                Image("profile")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 32, height: 31)
-            }
-            .overlay(            //nav bar rectangle
-                Rectangle()
-                    .foregroundColor(.white)
-                    .frame(width: 393, height: 66)
-                    .offset(y: 396))
+            Spacer()
         }
     }
 }

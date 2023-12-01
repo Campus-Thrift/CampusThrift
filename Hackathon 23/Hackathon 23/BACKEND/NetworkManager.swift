@@ -8,8 +8,8 @@
 //
 //import SwiftUI
 //
-//class Network: ObservableObject {
-//    @Published var users: [User] = []
+//class NetworkManager: ObservableObject {
+//    @Published var posts: [Post] = []
 //
 //    func getUsers() {
 //        guard let url = URL(string: "") else { fatalError("Missing URL") }
@@ -28,7 +28,7 @@
 //                guard let data = data else { return }
 //                DispatchQueue.main.async {
 //                    do {
-//                        let decodedUsers = try JSONDecoder().decode([User].self, from: data)
+//                        let decodedUsers = try JSONDecoder().decode([Post].self, from: data)
 //                        self.users = decodedUsers
 //                    } catch let error {
 //                        print("Error decoding: ", error)

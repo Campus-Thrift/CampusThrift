@@ -76,16 +76,16 @@ struct Home: View {
                                     .scaledToFill()
                                     .frame(width: 170, height: 170)
                                     .clipShape(RoundedRectangle(cornerRadius: 5))
-                                Button(action: {
-                                    self.isLiked.toggle()
-                                }) {
-                                    Image(systemName: isLiked ? "heart.fill" : "heart")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 25, height: 25)
-                                        .foregroundColor(isLiked ? .red : .gray)
-                                        .offset(x: 63, y: 65)
-                                }
+                                
+                                Image(systemName: isLiked ? "heart.fill" : "heart")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 25, height: 25)
+                                    .foregroundColor(isLiked ? .red : .gray)
+                                    .offset(x: 63, y: 65)
+                                    .onTapGesture {
+                                        self.isLiked.toggle()
+                                    }
                             }
                             Text("Lorem ipsum")
                                 .font(Font.custom("Rubik-Light", size: 16).weight(.light))
@@ -97,40 +97,6 @@ struct Home: View {
                     }
                 }
             }
-            Spacer()
-            Spacer()
-            //navigation bar line
-            Rectangle()
-                .fill(Color.black)
-                .frame(width: 700, height: 1, alignment: .bottom)
-//                .offset(y: 363)
-            Spacer()
-            Spacer()
-            HStack(spacing: 110) {
-                //house icon
-                Image("home")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 32, height: 32)
-
-                //plus icon
-                Image("plus")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 34, height: 34)
-
-                //person icon
-                Image("profile")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 32, height: 31)
-            }
-            .overlay(            //nav bar rectangle
-                Rectangle()
-                    .foregroundColor(.white)
-                    .frame(width: 393, height: 66)
-                    .offset(y: 396))
-
         }
     }
 }

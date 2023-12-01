@@ -11,20 +11,7 @@ import SwiftUI
 struct Hackathon_23App: App {
     var body: some Scene {
         WindowGroup {
-            TabView {
-                Home()
-                    .tabItem{
-                        Label("Home", systemImage: "home")
-                    }
-                Add()
-                    .tabItem{
-                        Label("Post", systemImage: "plus")
-                    }
-                ProfileLikes()
-                    .tabItem{
-                        Label("Profile", systemImage: "profile")
-                    }
-            }
+            ContentView()
         }
     }
 }

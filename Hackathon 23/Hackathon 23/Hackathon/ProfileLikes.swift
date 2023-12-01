@@ -87,53 +87,31 @@ struct ProfileLikes: View {
             ScrollView(.vertical, showsIndicators: true) {
                 LazyVGrid(columns: columns, spacing: 17) {
                     ForEach(sampleImages, id: \.self) { image in
-                        ZStack() {
-                            Image(image)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 170, height: 170)
-                                .clipShape(RoundedRectangle(cornerRadius: 5))
-                            Button(action: {
-                                self.isLiked.toggle()
-                            }) {
+                        VStack() {
+                            ZStack() {
+                                Image(image)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 170, height: 170)
+                                    .clipShape(RoundedRectangle(cornerRadius: 5))
                                 Image(systemName: isLiked ? "heart.fill" : "heart")
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 25, height: 25)
                                     .foregroundColor(isLiked ? .red : .gray)
                                     .offset(x: 63, y: 65)
+                                    .onTapGesture {
+                                        self.isLiked.toggle()
+                                    }
                             }
+                            Text("Lorem ipsum\n$0.00")
+                                .font(Font.custom("Rubik", size: 14).weight(.light))
+                                .foregroundColor(Color(red: 0.16, green: 0.18, blue: 0.20))
+                                .offset(x: -40)
                         }
                     }
                 }
             }
-            Rectangle().fill(Color.black).frame(width: .infinity, height: 1, alignment: .bottom)
-            Spacer()
-            Spacer()
-            HStack(spacing: 110) {
-                //house icon
-                Image("home")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 32, height: 32)
-
-                //plus icon
-                Image("plus")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 34, height: 34)
-
-                //person icon
-                Image("profile")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 32, height: 31)
-            }
-            .overlay(            //nav bar rectangle
-                Rectangle()
-                    .foregroundColor(.white)
-                    .frame(width: 393, height: 66)
-                    .offset(y: 396))
 
         }
         }
