@@ -1,4 +1,5 @@
 import json
+from time import gmtime, strftime
 
 from db import *
 from flask import Flask,request
@@ -206,7 +207,7 @@ def create_post(user_id):
         return failure_response("user not found")
     body = json.loads(request.data)
     username = body.get("username")
-    timestamp = body.get("timestamp")
+    timestamp = strftime("%Y-%m-%d %H:%M:%S", gmtime())
     photo = body.get("photo")
     title = body.get("title")
     description = body.get("description")
