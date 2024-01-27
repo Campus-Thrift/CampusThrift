@@ -18,9 +18,9 @@ Within the profile section of the app, users can view their like history, post h
 ### IOS
 - The bottom tab view has three clickable icons (home, add, and profile) that allow the user to  view each of the three main screens.
 - The Home Screen, Profile, listing, and like screens each have a feature where users can scroll through the clothing items.
-- Networking integration with a backend API: When users choose an image from their camera roll and fill out the required text they are able to post a clothing item which will show on the profile listing and other users home feed.
+- Networking integration with a backend API: When users choose an image from their camera roll and fill out the required text they are able to post a clothing item which will show on the profile listing and other users' home feed.
 ### Backend
-- Designed an API to handle endpoints to manage and store data for users and posts using database modeling and implemented it using the Flase boilerplate code. (See API Specification below for more details)
+- Designed an API to handle endpoints to manage and store data for users and posts using database modeling and implemented it using the Flask boilerplate code. (See API Specification below for more details)
 - Deployed backend to Google Cloud.
 
 ## API Specification
